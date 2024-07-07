@@ -49,14 +49,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "bitcoin-demos"
-version = "0.1.0"
-dependencies = [
- "bitcoin",
- "bitcoincore-rpc",
-]
-
-[[package]]
 name = "bitcoin-internals"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -114,6 +106,14 @@ dependencies = [
  "bitcoin",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "block-value-calculator"
+version = "0.1.0"
+dependencies = [
+ "bitcoin",
+ "bitcoincore-rpc",
 ]
 
 [[package]]
