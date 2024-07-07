@@ -3,6 +3,12 @@ name = "bitcoin-demos"
 version = "0.1.0"
 edition = "2021"
 
+<<<<<<< HEAD
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+=======
+[dependencies]
+bitcoin = "0.32.2"
+bitcoincore-rpc = "0.19.0"
+>>>>>>> 46f56d9 (feat: calculator of total BTC spent in block)
