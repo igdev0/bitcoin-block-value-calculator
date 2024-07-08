@@ -1,5 +1,6 @@
 use bitcoin::{Amount, BlockHash};
 use bitcoincore_rpc::{Auth, Client, RpcApi};
+use block_value_calculator::Config;
 use std::{
     hash::{DefaultHasher, Hash},
     path::PathBuf,
@@ -7,12 +8,21 @@ use std::{
 
 fn main() {
     // Path to the Bitcoin Core .cookie file
-    let cookie_file_path = PathBuf::from("/Volumes/externalSSD/Bitcoin/.cookie"); // Update this path accordingly
 
+    // let
+
+    let cfg: Config = Config::new().unwrap();
+    dbg!(&cfg);
     // Create an RPC client using the cookie for authentication
     let rpc_url = "http://localhost:8332";
-    let rpc_auth = Auth::CookieFile(cookie_file_path);
-    let block_height = 277316;
+    let rpc_auth: Auth;
+
+    if cfg.auth_default {
+        rpc_auth = Auth::CookieFile(PathBuf::from(cfg.path_to_auth_cookie));
+    } else {
+        rpc_auth = Auth::UserPass(cfg.rpc_username.unwrap(), cfg.rpc_password.unwrap());
+    }
+    let block_height = 1000;
 
     let rpc = Client::new(rpc_url, rpc_auth).expect("Failed to create RPC client");
 
@@ -29,7 +39,6 @@ fn main() {
     for tx in block.txdata.iter() {
         let txid = tx.compute_txid();
         count += 1;
-        // txid.as_raw_hash();
         println!("Processing transaction: {}", &txid);
         let transaction = rpc
             .get_raw_transaction(&txid, None)
@@ -38,7 +47,6 @@ fn main() {
         for txout in transaction.output.iter() {
             total_value += txout.value;
             total_out += 1;
-            // println!("Value of out {}: {}", idx, txout.value);
         }
 
         let st = "=".repeat(txid.as_raw_hash().to_string().len());
