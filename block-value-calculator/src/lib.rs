@@ -1,59 +1,72 @@
-use std::{env, fs};
-#[derive(Debug)]
-pub struct Config {
-    pub rpc_username: Option<String>,
-    pub rpc_password: Option<String>,
-    pub path_to_auth_cookie: String,
-    pub auth_default: bool,
+use bitcoin::{Amount, Block, BlockHash};
+use bitcoincore_rpc::{Auth, Client, RpcApi};
+use std::{path::PathBuf, str::FromStr};
+
+pub mod config;
+// Command
+pub struct BlockValueCalculator {
+    rpc: Client,
 }
 
-impl Config {
-    pub fn new() -> Result<Self, String> {
-        let input_rpc_username = env::var("RPC_USERNAME");
-        let input_rpc_password = env::var("RPC_PASSWORD");
-        let input_use_default_auth: bool = env::var("RPC_DEFAULT_AUTH")
-            .unwrap_or_else(|_| "true".to_string())
-            .parse()
-            .unwrap();
-        let path_to_auth_cookie = env::var("RPC_PATH")
-            .unwrap_or_else(|_| "/Volumes/externalSSD/Bitcoin/.cookie".to_string());
+impl BlockValueCalculator {
+    pub fn new(cfg: config::Config) -> Self {
+        // Self::rp
+        let rpc_auth: Auth;
 
-        if input_use_default_auth {
-            // Check if the file exists, if it does not exist, panic.
-            fs::read(&path_to_auth_cookie).expect("Wasn't able to read the auth cookie file, make sure that the .cookie exists. Often happens that you have your credential setup in your bicoin.conf, delete those and restart bitcoind.");
-
-            return Ok(Config {
-                rpc_password: None,
-                rpc_username: None,
-                path_to_auth_cookie,
-                auth_default: true,
-            });
-        }
-
-        let mut username: Option<String> = None;
-        let mut password: Option<String> = None;
-
-        if let Ok(rpc_username) = input_rpc_username {
-            username = Some(rpc_username);
+        if cfg.auth_default {
+            rpc_auth = Auth::CookieFile(PathBuf::from(cfg.path_to_auth_cookie));
         } else {
-            return Err(
-                "The RPC username is required, please update your environment!".to_string(),
-            );
+            rpc_auth = Auth::UserPass(cfg.rpc_username.unwrap(), cfg.rpc_password.unwrap());
         }
 
-        if let Ok(rpc_password) = input_rpc_password {
-            password = Some(rpc_password);
-        } else {
-            return Err(
-                "The RPC password is required, please update your environment!".to_string(),
-            );
-        }
+        let rpc = Client::new(cfg.rpc_url.as_str(), rpc_auth).expect("Failed to create RPC client");
+        BlockValueCalculator { rpc }
+    }
 
-        Ok(Config {
-            path_to_auth_cookie,
-            rpc_password: password,
-            rpc_username: username,
-            auth_default: false,
-        })
+    pub fn calculate_total_value(&self, block: &Block) {
+        let mut total_value: Amount = Amount::from_btc(0.0).expect("Some message");
+        println!("Total transactions: {}", block.txdata.len());
+        let mut count = 0;
+        for tx in block.txdata.iter() {
+            let txid = tx.compute_txid();
+            count += 1;
+            println!("Processing transaction: {}", &txid);
+            let transaction = self
+                .rpc
+                .get_raw_transaction(&txid, None)
+                .expect("Wasn't able to get transaction ");
+            let mut total_out = 0;
+            for txout in transaction.output.iter() {
+                total_value += txout.value;
+                total_out += 1;
+            }
+
+            let st = "=".repeat(txid.as_raw_hash().to_string().len());
+            println!("Total out: {}", total_out);
+            println!("{}/{count}", block.txdata.len());
+            println!("{}{}", "=".repeat(23), st);
+        }
+        println!("Total value: {}", total_value);
+    }
+
+    pub fn get_block_from_height(&self, block_height: u64) -> Block {
+        let block_hash = self
+            .rpc
+            .get_block_hash(block_height)
+            .expect("Wasn't able to find the best hash");
+
+        self.rpc
+            .get_block(&block_hash)
+            .expect("Wasn't able to receive block")
+    }
+
+    pub fn get_block_from_hash(&self, hash: String) -> Block {
+        let block_hash = BlockHash::from_str(hash.as_str()).unwrap();
+        self.rpc.get_block(&block_hash).unwrap()
+    }
+
+    pub fn get_best_block(&self) -> Block {
+        let block_hash = self.rpc.get_best_block_hash().unwrap();
+        self.rpc.get_block(&block_hash).unwrap()
     }
 }
