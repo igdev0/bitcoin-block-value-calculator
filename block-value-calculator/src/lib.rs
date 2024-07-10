@@ -10,7 +10,6 @@ pub struct BlockValueCalculator {
 
 impl BlockValueCalculator {
     pub fn new(cfg: config::Config) -> Self {
-        // Self::rp
         let rpc_auth: Auth;
 
         if cfg.auth_default {
@@ -23,9 +22,9 @@ impl BlockValueCalculator {
         BlockValueCalculator { rpc }
     }
 
-    pub fn calculate_total_value(&self, block: &Block) {
-        let mut total_value: Amount = Amount::from_btc(0.0).expect("Some message");
-        println!("Total transactions: {}", block.txdata.len());
+    pub fn calculate_total_value(&self, block: &Block) -> (usize, Amount, BlockHash) {
+        let mut total_value: Amount = Amount::from_btc(0.0).expect("Wasn't able to parse from_btc");
+        let tx_count = block.txdata.len();
         let mut count = 0;
         for tx in block.txdata.iter() {
             let txid = tx.compute_txid();
@@ -35,18 +34,15 @@ impl BlockValueCalculator {
                 .rpc
                 .get_raw_transaction(&txid, None)
                 .expect("Wasn't able to get transaction ");
-            let mut total_out = 0;
             for txout in transaction.output.iter() {
                 total_value += txout.value;
-                total_out += 1;
             }
 
             let st = "=".repeat(txid.as_raw_hash().to_string().len());
-            println!("Total out: {}", total_out);
             println!("{}/{count}", block.txdata.len());
             println!("{}{}", "=".repeat(23), st);
         }
-        println!("Total value: {}", total_value);
+        (tx_count, total_value, block.block_hash())
     }
 
     pub fn get_block_from_height(&self, block_height: u64) -> Block {

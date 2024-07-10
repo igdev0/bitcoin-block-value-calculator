@@ -15,18 +15,27 @@ fn main() {
     if let Some(height) = app.get_one::<String>("height") {
         let block_height: u64 = height.parse().unwrap();
         let block = calculator.get_block_from_height(block_height);
-        calculator.calculate_total_value(&block)
+        let (tx_count, total_amount, block_hash) = calculator.calculate_total_value(&block);
+        println!(
+            "Block hash: {block_hash}\nTotal transactions:{tx_count}\nTotal BTC: {total_amount}",
+        )
     }
 
     if let Some(hash) = app.get_one::<String>("hash") {
         let block = calculator.get_block_from_hash(hash.to_string());
-        calculator.calculate_total_value(&block)
+        let (tx_count, total_amount, block_hash) = calculator.calculate_total_value(&block);
+        println!(
+            "Block hash: {block_hash}\nTotal transactions:{tx_count}\nTotal BTC: {total_amount}",
+        )
     }
 
     if let Some(best) = app.get_one::<String>("best") {
         if best.parse::<bool>().unwrap() {
             let block = calculator.get_best_block();
-            calculator.calculate_total_value(&block)
+            let (tx_count, total_amount, block_hash) = calculator.calculate_total_value(&block);
+            println!(
+            "Block hash: {block_hash}\nTotal transactions:{tx_count}\nTotal BTC: {total_amount}",
+        )
         }
     }
 }
