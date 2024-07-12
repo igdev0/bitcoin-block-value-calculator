@@ -1,10 +1,10 @@
-use block_value_calculator;
+use bvc;
 use clap::{Arg, Command};
 
 fn main() {
     // Path to the Bitcoin Core .cookie file
-    let cfg = block_value_calculator::config::Config::new().unwrap();
-    let calculator = block_value_calculator::BlockValueCalculator::new(cfg);
+    let cfg = bvc::config::Config::new().unwrap();
+    let calculator = bvc::BlockValueCalculator::new(cfg);
 
     let app = Command::new("app")
         .arg(Arg::new("height").long("height").short('e'))
