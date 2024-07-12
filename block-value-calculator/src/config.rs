@@ -18,7 +18,7 @@ impl Config {
             .unwrap_or_else(|_| "true".to_string())
             .parse()
             .unwrap();
-        let path_to_auth_cookie = env::var("RPC_PATH")
+        let path_to_auth_cookie = env::var("RPC_COOKIE_PATH")
             .unwrap_or_else(|_| "/Volumes/externalSSD/Bitcoin/.cookie".to_string());
 
         if input_use_default_auth {
