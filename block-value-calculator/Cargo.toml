@@ -3,6 +3,9 @@ name = "bvc"
 version = "0.1.0"
 edition = "2021"
 
+description = "This is a simple binary program which calculates the value of a given block on the Bitcoin network. You can specify the block by its height, hash, or get the best block."
+license = "MIT"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 authors = ["dorultanianos@gmail.com"]
 [dependencies]
