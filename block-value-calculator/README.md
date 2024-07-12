@@ -5,7 +5,8 @@ This is a simple binary program which calculates the value of a given block on t
 You must set the following environment variables to setup the project.
 `RPC_USERNAME=username`
 `RPC_PASSWORD=password`
-`RPC_DEFAULT_AUTH=true`
+`RPC_DEFAULT_AUTH=true` // if set to false, you must set `RPC_USERNAME` & `RPC_PASSWORD`
+`RPC_COOKIE_PATH=/Volumes/externalSSD/Bitcoin/.cookie` // This must be set if `RPC_DEFAULT_AUTH` is set to true 
 `RPC_URL=http://localhost:8332`
 
 # Building
