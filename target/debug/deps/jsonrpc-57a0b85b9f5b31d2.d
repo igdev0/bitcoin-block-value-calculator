@@ -1,0 +1,11 @@
+/Users/ianos/code/bitcoin-demos/block-value-calculator/target/debug/deps/libjsonrpc-57a0b85b9f5b31d2.rmeta: /Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/lib.rs /Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/client.rs /Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/error.rs /Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/http/mod.rs /Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/http/simple_http.rs /Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/http/minreq_http.rs /Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/simple_tcp.rs
+
+/Users/ianos/code/bitcoin-demos/block-value-calculator/target/debug/deps/jsonrpc-57a0b85b9f5b31d2.d: /Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/lib.rs /Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/client.rs /Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/error.rs /Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/http/mod.rs /Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/http/simple_http.rs /Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/http/minreq_http.rs /Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/simple_tcp.rs
+
+/Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/lib.rs:
+/Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/client.rs:
+/Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/error.rs:
+/Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/http/mod.rs:
+/Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/http/simple_http.rs:
+/Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/http/minreq_http.rs:
+/Users/ianos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/jsonrpc-0.18.0/src/simple_tcp.rs:
