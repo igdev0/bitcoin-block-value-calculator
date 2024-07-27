@@ -1,6 +1,6 @@
 [package]
 name = "bvc"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 
 description = "This is a simple binary program which calculates the value of a given block on the Bitcoin network. You can specify the block by its height, hash, or get the best block."
