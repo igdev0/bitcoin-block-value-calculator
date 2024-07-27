@@ -9,7 +9,13 @@ fn main() {
     let app = Command::new("app")
         .arg(Arg::new("height").long("height").short('e'))
         .arg(Arg::new("hash").short('a').long("hash"))
-        .arg(Arg::new("best").short('b'))
+        .arg(
+            Arg::new("best")
+                .short('b')
+                .default_missing_value("true")
+                .default_value("false")
+                .num_args(0..=1),
+        )
         .get_matches();
 
     if let Some(height) = app.get_one::<String>("height") {

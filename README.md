@@ -29,4 +29,4 @@ You must set the following environment variables to setup the project.
 | -------- | ----- | ------------------------------------------ | ------- |
 | --height | -e    | Specify the block height                   |         |
 | --hash   | -a    | Specify the block hash                     |         |
-| --best   | -b    | Get the best block (set to true to enable) | true    |
+| --best   | -b    | Get the best block (set to true to enable) | false   |

@@ -3,7 +3,7 @@ use bitcoincore_rpc::{Auth, Client, RpcApi};
 use std::{path::PathBuf, str::FromStr};
 
 pub mod config;
-// Command
+
 pub struct BlockValueCalculator {
     rpc: Client,
 }
